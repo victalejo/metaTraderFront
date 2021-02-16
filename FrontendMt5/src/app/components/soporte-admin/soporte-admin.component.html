@@ -1,0 +1,27 @@
+<div class="col-12 py-4 bg-gray-gradient">
+    <h4 class="float-left mb-3">Tickets Solicitados</h4>
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="border  shadow table table-striped table-bordered row-border hover">
+        <thead>
+        <tr>
+            <th>ID Ticket</th>
+            <th>Asunto</th>
+            <th>Estado</th>
+            <th>Etapa</th>
+            <th>Responsable</th>
+            <th>Fecha Solicitud</th>
+            <th>Acción</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let e of data">
+            <td>{{e.id}}</td>
+            <td>{{e.employee_name}}</td>
+            <td>Cerrado</td>
+            <td>Esperando al administrador</td>
+            <td>{{e.employee_name}}</td>
+            <td>{{e.employee_age}}</td>
+            <td><a target="autoblank" [routerLink] = "[e.employee_age]" class="btn btn-primary"><i class="fas fa-eye"></i></a></td>
+        </tr>
+        </tbody>
+  </table>
+</div>

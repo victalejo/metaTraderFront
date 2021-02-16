@@ -1,0 +1,72 @@
+.nav-item i {
+    font-size: 30px;
+}
+.primary li{
+    margin: 0px 9px;
+}
+.logo{
+	width: 51px;
+}
+.dropdown-toggle::after{
+    color: transparent;
+}
+.avatar {
+    display: inline-block;
+    white-space: nowrap;
+}
+.avatar-xs {
+    width: 48px;
+    height: auto;
+}
+
+.avatar img {
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+}
+.navbar-nav{
+    display: flex !important;
+    flex-wrap: wrap;
+    flex-direction: inherit;
+}
+
+.bg-riesgoone{
+    background: rgb(0,153,1);
+    background: linear-gradient(90deg, rgba(0,153,1,1) 0%, rgba(2,125,3,0.773546918767507) 70%);
+}
+.bg-riesgotwo{
+    background: rgb(2,125,3);
+    background: linear-gradient(90deg, rgba(2,125,3,1) 0%, rgba(47,124,27,0.7595413165266106) 100%);
+}
+.bg-riesgothree{
+    background: rgb(47,124,27);
+    background: linear-gradient(90deg, rgba(47,124,27,1) 0%, rgba(48,124,27,0.8211659663865546) 100%);
+}
+.bg-riesgofour{
+    background: rgb(48,125,27);
+    background: linear-gradient(90deg, rgba(48,125,27,1) 0%, rgba(254,192,0,0.7987570028011204) 100%);
+}
+.bg-riesgofive{
+    background: rgb(254,192,0);
+    background: linear-gradient(90deg, rgba(254,192,0,1) 0%, rgba(236,143,2,0.8295693277310925) 100%);
+}
+.bg-riesgosix{
+    background: rgb(236,142,0);
+    background: linear-gradient(90deg, rgba(236,142,0,1) 0%, rgba(226,106,10,0.6783088235294117) 100%);
+}
+.bg-riesgoseven{
+    background: rgb(226,106,10);
+    background: linear-gradient(90deg, rgba(226,106,10,1) 0%, rgba(208,26,26,0.7343312324929971) 100%);
+}
+.bg-riesgoeight{
+    background: rgb(208,26,26);
+    background: linear-gradient(90deg, rgba(208,26,26,0.6979166666666667) 0%, rgba(189,18,18,0.9) 100%);
+}
+.bg-riesgonine{
+    background: rgb(189,18,18);
+    background: linear-gradient(90deg, rgba(189,18,18,0.9)  0%, rgba(177,0,0,1) 100%);
+}
+.bg-riesgoten{
+    background: rgb(177,0,0);
+    background: linear-gradient(90deg, rgba(177, 0, 0, 0.864) 0%, rgba(177,0,0,1) 100%);
+}

@@ -1,0 +1,28 @@
+<div class="col-12 py-4 bg-gray-gradient">
+    <h4 class="float-left mb-3">Usuarios Registrados</h4>
+    <!--<table datatable [dtOptions]="dtOptions" class="border  shadow table table-striped table-bordered row-border hover"></table>-->
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="border  shadow table table-striped table-bordered row-border hover">
+        <thead>
+        <tr>
+            <th>Nombre y Apellidos</th>
+            <th>Correo</th>
+            <th>Telefono</th>
+            <th>Estado</th>
+            <th>Acción</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let e of data">
+            <td>{{e.name}} {{e.lastName}}</td>
+            <td>{{e.email}}</td>
+            <td>{{e.phone}}</td>
+            <td>{{e.active}}</td>
+            <td>
+           <button *ngIf="e.active" (click)="disabledUser(e.email)" class="btn btn-danger m-1"><span *ngIf="loadDisabled" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <i *ngIf="!loadDisabled" class="fas fa-times-circle"></i></button>
+           <button *ngIf="!e.active" (click)="enabledUser(e.email)" class="btn btn-success m-1"><span *ngIf="loadEnabled" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <i *ngIf="!loadEnabled"  class="fas fa-check-circle"></i></button></td>
+            <!--<button class="btn btn-success m-1"><i class="fas fa-check-circle"></i></button></td>-->
+        </tr>
+        </tbody>
+  </table>
+</div>
+<simple-notifications></simple-notifications>

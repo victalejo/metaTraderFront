@@ -1,0 +1,21 @@
+<div id="test" class="d-flex">
+<div id="login-button" placement="bottom" ngbTooltip="Iniciar Sesión" class="justify-content-center align-items-center">
+  <i class="text-white fas fa-user-shield" style="font-size: 3rem;"></i>
+
+  </div>
+  <div id="container" class="col-md-3 col-10 p-4 m-auto">
+    <h1>Iniciar Sesión</h1>
+    <span class="close-btn text-danger">
+      <i class="fas fa-times-circle"></i>
+    </span>
+  
+    <form #formLogin="ngForm" (ngSubmit)="onSubmitLogin(formLogin)" class="needs-validation" novalidate>
+      <input type="email"id="email" name="email"  #email="ngModel" [(ngModel)]="user.email" placeholder="Correo Electronico"  >
+      <input type="password" id="password" name="password" #password="ngModel" [(ngModel)]="user.password" placeholder="Contraseña">
+      <div *ngIf="!statusLogin" class="invalid-feedback d-block mb-3 text-capitalize ">{{mesageLogin}}</div>
+      <button *ngIf="!loadingLogin" type="submit"  class="btn btn-success btn-block w-75 m-auto" > Iniciar Sesión</button>
+      <button *ngIf="loadingLogin" type="submit" disabled class="btn btn-success btn-block w-75 m-auto" ><span  class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Iniciar Sesión</button>
+    </form>
+  </div>
+
+  <div>

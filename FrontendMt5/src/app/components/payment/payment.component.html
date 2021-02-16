@@ -1,0 +1,132 @@
+
+<nav class="navbar shadow navbar-expand-lg navbar-light bg-dark" style="z-index: 1;">
+    <a class="navbar-brand" [routerLink] = "['/home']"><img class="logo" src="../../../assets/images/logo.jpeg"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav primary">
+
+      </ul>
+      <ul class="navbar-nav ml-auto mr-5">
+        <li class="nav-item">
+            <a class="nav-link text-white" [routerLink] = "['/home']" placement="bottom" ngbTooltip="Inicio"><i class="fas fa-house-user"></i></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-white cursor-pointer" (click)="logout()" placement="bottom" ngbTooltip="Salir"><i class="fas fa-sign-out-alt"></i></a>
+        </li>
+      </ul>
+     
+    </div>
+  </nav>
+<div class="col-12 d-flex flex-wrap justify-content-center">
+    <div class="mt-5 text-center">
+        <h3>Tu Cuenta Esta Pendiente de Pago</h3>
+        <p class="mb-1">Te ofrecemos metodos de pagos en linea o pagos fuera de linea (Pago mano a mano).</p>
+        <p><strong>Todos las comisiones quedan a responsabilidad de los usuarios</strong></p>
+        <!--<form #formSoportePago="ngForm"  class="needs-validation" novalidate>
+            <div class="form-group">
+                <label for="soporte-pago"><strong>Subir soporte de pago</strong> en caso de que tu pago sea  realizado fuera de linea.</label>
+                <input type="file" class="form-control" id="soporte-pago" name="soporte-pago" aria-describedby="emailHelp" required="">              
+            </div>
+            <button class="btn btn-success">ENVIAR</button>
+        </form>-->
+    </div>
+    <div class="col-12 d-flex pb-5 mt-5 flex-wrap  justify-content-center">
+        <div class="col-md-6 border mb-5 mb-lg-0 pb-5">
+            <p class="text-center w-50 bg-white mr-auto ml-auto" style="margin-top: -12px;"><strong>PAGOS EN LINEA</strong></p>
+            <div class="col-12 mt-4 shadow py-3">
+                <p>Me todo de pago en Liena utilizando <strong>EPAYCO</strong> valor a pagar <strong>51.25 USD </strong> incluye los <strong>50 USD</strong>  + 
+                tasa de interes por la transacción</p>
+                <!--<a id="epayco" class="btn btn-danger  btn-block shadow" onclick="pagar1()">PAGAR CON EPAYCO</a>-->
+                <!--<form action="http://localhost:3000/api/pago" method="POST" onsubmit="payment(event, $(this))" id="form-payment" class="needs-validation" novalidate>-->
+                    <!-- div donde se imprimiran los errores (opcional) -->
+                <form #formPayment="ngForm" (ngSubmit)="onSubmitPayment(formPayment)" class="needs-validation" novalidate>
+                    <div class="card-errors"></div>
+                    <!-- datos necesarios para tokenizar -->
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="docType">Tipo Documento</label>
+                            <select id="docType" name="docType" class="form-control" #docType="ngModel" [(ngModel)]="payment.docType">
+                                <option >Tarjeta Identidad</option>
+                                <option >CC</option>
+                               
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="docNumber">Documento</label>
+                            <input id="docNumber" name="docNumber" class="form-control" type="text" #docNumber="ngModel" [(ngModel)]="payment.docNumber" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="city">Ciudad</label>
+                            <input id="city" name="city" class="form-control" type="text" required #city="ngModel" [(ngModel)]="payment.city">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="address">Direccion</label>
+                            <input id="address" name="address" class="form-control" type="text" required #address="ngModel" [(ngModel)]="payment.address">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="numberCard"> Número de la tarjeta de crédito  </label>
+                            <input id="numberCard" name="numberCard" class="form-control" type="text" required #numberCard="ngModel" [(ngModel)]="payment.numberCard" >
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="cvcCard">CVC</label>
+                            <input  id="cvcCard" class="form-control" name="cvcCard" type="text" size="4" required #cvcCard="ngModel" [(ngModel)]="payment.cvcCard">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="expMonthCard">Mes de expiración(MM)</label>
+                            <input id="expMonthCard" name="expMonthCard"  class="form-control" type="text" required #expMonthCard="ngModel" [(ngModel)]="payment.expMonthCard">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="expYearCard">Año de expiración(AAAA)</label>
+                            <input  id="expYearCard" name="expYearCard" class="form-control" type="text" required #expYearCard="ngModel" [(ngModel)]="payment.expYearCard">
+                        </div>
+
+                    </div>
+                    <div *ngIf="!statusPayment" class="invalid-feedback d-block mb-3 text-capitalize ">{{messagePayment}}</div> 
+                    <div *ngIf="statusPayment" class="valid-feedback d-block mb-3 text-capitalize">{{messagePayment}}</div> 
+                    <!-- botón con la acción para enviar el formulario -->
+                    <button *ngIf="!loadingPayment" type="submit" class="btn btn-success" > Realizar Pago</button>
+                    <button *ngIf="loadingPayment" type="submit" disabled class="btn btn-success" ><span  class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Realizar Pago</button>             
+                </form>
+            </div>
+
+        </div>
+        <div class="col-md-6 border pb-5 d-flex flex-wrap">
+            <p class="text-center w-50  bg-white mr-auto ml-auto " style="margin-top: -12px;"><strong>PAGOS FUERA DE LINEA (MANO A MANO)</strong></p>
+            <p>Por pagar en fuera de linea la activación de tu cuenta tiene una valor de <strong>50 USD</strong>. Despues del pagado es importante guardar el comprobante de pago y enviarlo, para que su cuenta se ha activada.</p>
+            
+            <div class="col-12 mt-2 shadow py-3">
+                <p class="mb-2"><strong>Cuenta de Ahorros Bancolombia</strong></p>
+                <p class="mb-0">069-948265-12</p>
+            </div>
+            <div class="col-12 mt-4 shadow py-3">
+                <p class="mb-2"><strong>Cuenta de Ahorros Davivienda</strong></p>
+                <p class="mb-0">1380-0003-9808</p>
+            </div>
+            <div class="col-12 mt-4 shadow py-3">
+                <p class="mb-2"><strong>Nequi</strong></p>
+                <p class="mb-0">314-615-1136</p>
+            </div>
+            <div class="col-12 mt-4 shadow py-3">
+                <p class="mb-2"><strong>Skrill</strong></p>
+                <p class="mb-0">sebastiancarvajal433@gmail.com</p>
+            </div>
+            <div class="col-12 mt-4 shadow py-3">
+                <p class="mb-2"><strong>Paypal</strong></p>
+                <p class="mb-0">https://www.paypal.me/Sebastiantrader30</p>
+            </div>
+            <div class="col-12 mt-4 shadow py-3">
+                <p class="mb-2"><strong>AIRTM</strong></p>
+                <p class="mb-0">sebastiancarvajal433@gmail.com</p>
+            </div>
+        </div>
+    </div>
+</div>
+<simple-notifications></simple-notifications>

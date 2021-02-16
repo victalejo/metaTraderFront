@@ -1,0 +1,30 @@
+<nav class="navbar shadow navbar-expand-lg navbar-light bg-riesgofive" style="z-index: 1;">
+    <a class="navbar-brand" [routerLink] = "['/dashboard']"><img class="logo" src="../../../assets/images/logo.jpeg"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav primary">
+        <!--<li class="nav-item active">
+          <a class="nav-link text-white" [routerLink] = "['soporte']"  placement="bottom" ngbTooltip="Soporte"><i class="fas fa-headset"></i></a>
+        </li>-->
+
+        <!--<li class="nav-item">
+          <a class="nav-link text-white" [routerLink] = "['calificar']" placement="bottom" ngbTooltip="Calificar"><i class="far fa-comment-dots"></i></a>
+        </li>-->
+      </ul>
+      <ul class="navbar-nav ml-auto mr-5">
+        <div class="dropdown show">
+          <a class=" avatar  avatar-xs dropdown-toggle" placement="bottom" ngbTooltip="Perfil" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <img  *ngIf="user.avatar != ''" src="{{url}}assets/images/{{user.avatar}}">
+          </a>
+        
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" [routerLink] = "['configurar']">Configurar</a>
+            <a class="dropdown-item cursor-pointer" (click)="logout()">Cerrar Sesión</a>
+          </div>
+        </div>
+      </ul>      
+    </div>
+  </nav>
+  <router-outlet></router-outlet>

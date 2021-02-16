@@ -1,0 +1,7 @@
+.badge{
+    line-height: 17px;
+    white-space: pre-line 
+}
+ .no-badge{
+    white-space: inherit !important
+}

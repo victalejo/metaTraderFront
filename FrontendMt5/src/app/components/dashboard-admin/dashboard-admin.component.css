@@ -1,0 +1,31 @@
+.nav-item i {
+    font-size: 30px;
+}
+.dropdown-toggle::after{
+    color: transparent;
+}
+.primary li{
+    margin: 0px 9px;
+}
+.logo{
+	width: 51px;
+}
+.avatar {
+    display: inline-block;
+    white-space: nowrap;
+}
+.avatar-xs {
+    width: 48px;
+    height: 49px;
+}
+
+.avatar img {
+    height: auto;
+    max-width: 100%;
+    border-radius: 50%;
+}
+.navbar-nav{
+    display: flex !important;
+    flex-wrap: wrap;
+    flex-direction: inherit;
+}

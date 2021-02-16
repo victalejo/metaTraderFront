@@ -1,0 +1,54 @@
+<!--View comprobante de pago-->
+<div class="modal fade" id="viewComprobante" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Verificar Comprobante</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div class="col-12 d-flex justify-content-between mb-2">
+                    <p>Comprobante pago de: {{name}}</p>
+                </div>
+                <img class="img-fluid border shadow p-1" src="../../../assets/images/contact.jpg">
+            </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+</div>
+<!--Rechazar comprobante de pago-->
+<div class="modal fade" id="notAprobed" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Rechazar Pago</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form id="form_response_comprobante" class="needs-validation" novalidate>
+                <p>Detalla por que razón rechazas este pago que le pertenece a: {{name}}</p>
+                
+                <div class="form-group">
+                <label for="description">Descripción</label>
+                <textarea required="" minlength="6" class="form-control" name="description" id="description" placeholder="Ingrese una descripción"></textarea>
+                <div class="invalid-feedback"></div>
+                </div>
+                <button type="submit" class="btn btn-block btn-success hover-btn-primary" id="btn_login" >Envia Respuesta</button>
+              </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+<div class="col-12 py-4 bg-gray-gradient">
+    <h4 class="float-left mb-3">Comprobantes de Pago</h4>
+    <table datatable [dtOptions]="dtOptions" class="border  shadow table table-striped table-bordered row-border hover"></table>
+</div>

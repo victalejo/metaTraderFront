@@ -1,0 +1,151 @@
+<div class="col-12  d-flex p-0 justify-content-center align-items-center flex-wrap">
+    <div class="bg-riesgofive text-white col-12 pl-0 pr-0 pt-3 pb-3 ">
+        <h3 class="col-auto text-center">Información de Usuario</h3>
+        <div class="  text-center col-12 py-4 px-5">
+            <form enctype="multipart/form-data" #formUpdateImagen="ngForm"  id="profile-image-form">
+
+                <div class="profile-image-upload">
+                    <label placement="bottom" ngbTooltip="Actualizar Imagen De Perfil" for="avatar"><i class="fas fa-camera m-1 cursor-pointer"></i></label>
+                    <span placement="bottom" ngbTooltip="Eliminar Imagen De Perfil" (click)="deleteImage()"  class="cursor-pointer"><i class="fas fa-trash-alt "></i></span>
+                </div>
+                <input type="file" id="avatar" (change)="onFileChange($event,formUpdateImagen)"  name="avatar" style="display:none">
+                <span class="avatar avatar-lg mb-3"><img *ngIf="user.avatar != ''" id="profile-image-preview" src="{{url}}assets/images/{{user.avatar}}" alt="..."></span> 
+                <h4 class="font-bold">{{user.name}} {{user.lastName}}</h4>               
+            </form>
+        </div>
+    </div>
+    <nav class="col-12 p-0">
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+          <a class="nav-item nav-link active" id="nav-personal-tab" data-toggle="tab" href="#nav-personal" role="tab" aria-controls="nav-personal" aria-selected="true">Información Personal</a>
+          <a class="nav-item nav-link" id="nav-mt5-tab" data-toggle="tab" href="#nav-mt5" role="tab" aria-controls="nav-mt5" aria-selected="false">Informacion MT5</a>
+          <a class="nav-item nav-link" id="nav-config-tab" data-toggle="tab" href="#nav-config" role="tab" aria-controls="nav-config" aria-selected="false">Configuración de la Cuenta</a>
+        </div>
+      </nav>
+      <div class="tab-content col-12 p-0" id="nav-tabContent">
+          <!--Panel infomración personal-->
+        <div class="tab-pane show fade pt-3 active " id="nav-personal" role="tabpanel" aria-labelledby="nav-personal-tab">
+            <div class="panel-default panel-heading">
+                <h4>Información Personal</h4>      
+            </div>   
+            <form  #formUpdatePersonal="ngForm" (ngSubmit)="onSubmitPersonal(formUpdatePersonal)" class="general-form dashed-row needs-validation" novalidate>
+                <div class="panel-body">
+ 
+                    <div class="form-group">
+                        <label for="name" class="col-md-2">Nombres: </label>
+                        <div class="col-md-10">
+                            <input  required type="text"  #name="ngModel" minlength="3" [(ngModel)]="user.name"  id="name"  name="name" class="form-control" placeholder="Ingrese sus nombres"> 
+                        </div>  
+                    </div>
+                    <div class="form-group">
+                        <label for="lastname" class="col-md-2">Apellidos: </label>
+                        <div class="col-md-10">
+                            <input  required type="text" #lastName="ngModel" minlength="3" [(ngModel)]="user.lastName"  id="lastname" name="lastname"  value=""  class="form-control" placeholder="Ingrese sus apellidos">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone" class="col-md-2">Número de Telefono</label>
+                        <div class="col-md-10">
+                            <input required type="tel" pattern="[0-9]" minlength="9" #phone="ngModel" [(ngModel)]="user.phone" class="form-control" id="phone" name="phone" placeholder="Ingrese su numero de télefono">
+                        </div>
+                    </div>  
+
+                    <div class="form-group position-relative" style="border:none">
+                        <label for="country" for="pais" class="col-md-2">País: </label>
+                        <div class="col-md-10">
+                            <input  id="country" name="country" required (blur)="onBlurPais()" minlength="3"  (keyup)="onChangePais()"  #pais="ngModel" [(ngModel)]="user.country" (focus)="onFocusPais()" autocomplete="nope" type="text" class="form-control" id="pais" name="pais" placeholder="Ingrese su pais">
+                            <div id="list_paises" class="shadow fade d-none  position-absolute bg-white col-12 p-0">
+                                <span   *ngFor="let pais of paises_filter" (click)="onClickPaisSpan(pais.pais)" class="cursor-pointer option-pais d-block" data-pais="{{pais.pais}}"><img class="mr-2" src="{{pais.imagen}}">{{pais.pais}}</span>
+                            </div>                         
+                        </div>
+                       
+                    </div> 
+                    <div *ngIf="!statusUpdateUser" class="invalid-feedback d-block mb-3 text-capitalize ">{{messageUpdateUser}}</div> 
+                    <div *ngIf="statusUpdateUser" class="valid-feedback d-block mb-3 text-capitalize">{{messageUpdateUser}}</div>            
+                </div>      
+        
+        
+                <div class="panel-footer">
+                    <button *ngIf="!loadingUpdateUser" type="submit" class="btn btn-secundary" ><i class="fas fa-save pr-2"></i> Guardar</button>
+                    <button *ngIf="loadingUpdateUser" type="submit" disabled class="btn btn-secundary" ><span  class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> <i class="fas fa-save pr-2"></i> Guardar</button>                
+                </div>      
+            </form>         
+        </div>  
+        <!--Fin panel-->
+        <!--Panel Información de MT5-->  
+        <div class="tab-pane fade pt-3 " id="nav-mt5" role="tabpanel" aria-labelledby="nav-mt5-tab">
+            <div class="panel-default panel-heading">
+                <h4>Información MT5</h4>      
+            </div>   
+            <form  #formUpdateMT="ngForm" (ngSubmit)="onSubmitMT(formUpdateMT)" class="general-form dashed-row needs-validation" novalidate>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="clientId" class="col-md-2">ID de MT5: </label>
+                        <div class="col-md-10">
+                            <input  required type="number" pattern="[0-9]{10}" minlength="3" #clientId="ngModel" [(ngModel)]="user.clientId" id="clientId" name="clientId"  class="form-control" placeholder="Ingrese su ID de MT5">
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label for="passMT5" class="col-md-2">Contraseña Actual de MT5: </label>
+                        <div class="col-md-10">
+                            <input  #passMT="ngModel" minlength="6" [(ngModel)]="user.passMT5" required type="password" id="passMT5" name="passMT5"   class="form-control" placeholder="Ingrese su contraseña de MT5">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassMT5" class="col-md-2">Nueva Contraseña de MT5: </label>
+                        <div class="col-md-10">
+                            <input  #newPassMT5="ngModel" minlength="6" [(ngModel)]="user.newPassMT5" required type="password" id="newPassMT5" name="newPassMT5"   class="form-control" placeholder="Ingrese su contraseña de MT5">
+                        </div>
+                    </div>
+                    <div *ngIf="!statusUpdateMt" class="invalid-feedback d-block mb-3 text-capitalize ">{{messageUpdateMt}}</div> 
+                    <div *ngIf="statusUpdateMt" class="valid-feedback d-block mb-3 text-capitalize">{{messageUpdateMt}}</div>
+                </div>      
+        
+        
+                <div class="panel-footer">
+                    
+                    <button *ngIf="!loadingUpdateMt" type="submit" class="btn btn-secundary" ><i class="fas fa-save pr-2"></i>Guardar</button>
+                    <button *ngIf="loadingUpdateMt" disabled type="submit" class="btn btn-secundary" ><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><i class="fas fa-save pr-2"></i>Guardar</button>
+                </div>      
+            </form>         
+        </div> 
+        <!--Fin panel--> 
+        <!--Panel configuración de cuenta-->
+        <div class="tab-pane fade pt-3 " id="nav-config" role="tabpanel" aria-labelledby="nav-config-tab">
+            <div class="panel-default panel-heading">
+                <h4>Configuración de la cuenta Cuenta</h4>      
+            </div>   
+            <form #formUpdateConfig="ngForm" (ngSubmit)="onSubmitConfig(formUpdateConfig)"  class="general-form dashed-row needs-validation" novalidate>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label for="email" class="col-md-2">Correo Electronico: </label>
+                        <div class="col-md-10">
+                            <input required type="email" #email="ngModel" [(ngModel)]="user.email" class="form-control" id="email" name="email" placeholder="Ingrese su correo electronico">
+                        </div>
+                    </div> 
+                    <div class="form-group">
+                        <label for="oldPass" class="col-md-2">Contraseña Actual: </label>
+                        <div class="col-md-10">
+                            <input required type="password" minlength="6"  #oldPass="ngModel" [(ngModel)]="user.oldPass" class="form-control" id="oldPass"  name="oldPass" placeholder="Ingrese una contraseña">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="newPass" class="col-md-2">Contraseña Nueva: </label>
+                        <div class="col-md-10">
+                            <input required type="password" minlength="6" #newPass="ngModel" [(ngModel)]="user.newPass" class="form-control" id="newPass"  name="newPass" placeholder="Confirme su contraseña">
+                        </div>
+                    </div>
+                    <div *ngIf="!statusUpdateData" class="invalid-feedback d-block mb-3 text-capitalize ">{{messageUpdateData}}</div> 
+                    <div *ngIf="statusUpdateData" class="valid-feedback d-block mb-3 text-capitalize">{{messageUpdateData}}</div>
+                </div>      
+        
+        
+                <div class="panel-footer">
+                    <button  *ngIf="!loadingUpdateData" type="submit" class="btn btn-secundary" id="update_abogado"><i class="fas fa-save pr-2"></i>Guardar</button>
+                    <button  *ngIf="loadingUpdateData" type="submit" class="btn btn-secundary" disabled id="update_abogado"><span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span><i class="fas fa-save pr-2"></i>Guardar</button>
+                </div>      
+            </form>         
+        </div>  
+        <!--Fin panel-->    
+    </div>
+</div>
+<simple-notifications></simple-notifications>

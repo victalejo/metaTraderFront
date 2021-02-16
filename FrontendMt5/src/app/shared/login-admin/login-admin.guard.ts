@@ -1,0 +1,25 @@
+import { Injectable } from '@angular/core';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import {UserService} from "../../services/user.service";
+import { CookieService } from 'ngx-cookie-service';
+@Injectable({
+  providedIn: 'root'
+})
+export class LoginAdminGuard implements CanActivate {
+  constructor(
+    private _userService: UserService,
+    private _router: Router,
+    private cookieService: CookieService,
+	){}
+  canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    
+    if(!this.cookieService.check("connect.sid") && !this.cookieService.check("token")){
+      return true;
+    }else{
+      this._router.navigate(["dashboard-admin"]);
+      return false;
+    }
+  }
+  
+}
